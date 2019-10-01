@@ -26,6 +26,7 @@ Plug 'ervandew/supertab'
 Plug 'andys8/vim-elm-syntax'
 Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
+Plug 'scrooloose/nerdcommenter'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
