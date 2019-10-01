@@ -16,7 +16,6 @@ Plug 'endel/vim-github-colorscheme'
 Plug 'dikiaap/minimalist'
 Plug 'rakr/vim-one'
 
-Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jceb/vim-orgmode'
@@ -24,6 +23,9 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-speeddating'
 Plug 'ervandew/supertab'
+Plug 'andys8/vim-elm-syntax'
+Plug 'sheerun/vim-polyglot'
+Plug 'dense-analysis/ale'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -134,6 +136,9 @@ let javaScript_fold=1 "activate folding by JS syntax
 set foldlevelstart=99 "start file with all folds opened
 
 " -- fzf mappings -- 
-nnoremap <C-p> :Files<CR>
+nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>h :History<CR>
+
+" -- Polyglot -- 
+"let g:polyglot_disabled = ['elm']
