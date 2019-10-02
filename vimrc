@@ -11,6 +11,7 @@ call plug#begin('~/.vim/plugged')
 " -- Color Schemes
 Plug 'junegunn/seoul256.vim'
 Plug 'sainnhe/edge'
+Plug 'AlessandroYorba/Alduin'
 
 Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -35,16 +36,20 @@ syntax on
 
 " Color scheme
 
+"set termguicolors
+"let g:alduin_Shout_Become_Ethereal = 1
+"colorscheme alduin
+
 " -- Edge
-set termguicolors
+"set termguicolors
 " for dark version
-set background=dark
-colorscheme edge
+"set background=dark
+"colorscheme edge
 
 " -- Seoul256 Dark --
-"let g:seoul256_background = 233
-"colo seoul256
-"set background=dark
+let g:seoul256_background = 234
+colo seoul256
+set background=dark
 
 " -- Seoul256 Light --
 "let g:seoul256_background = 256
