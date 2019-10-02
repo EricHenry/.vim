@@ -10,11 +10,7 @@ call plug#begin('~/.vim/plugged')
 " Declare the list of plugins.
 " -- Color Schemes
 Plug 'junegunn/seoul256.vim'
-Plug 'mhartington/oceanic-next'
-Plug 'dracula/vim'
-Plug 'endel/vim-github-colorscheme'
-Plug 'dikiaap/minimalist'
-Plug 'rakr/vim-one'
+Plug 'sainnhe/edge'
 
 Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -38,36 +34,22 @@ filetype off
 syntax on
 
 " Color scheme
-" -- Minimalist
-"set t_Co=256
-"colorscheme minimalist
 
-" -- GitHub --
-"colorscheme github
+" -- Edge
+set termguicolors
+" for dark version
+set background=dark
+colorscheme edge
 
-" -- Dracula --
-"  colorscheme dracula
-"
-" -- OceanicNext --
-" for vim 8
-"if (has("termguicolors"))
-" set termguicolors
-"endif
-"colorscheme OceanicNext
-"
 " -- Seoul256 Dark --
-let g:seoul256_background = 233
-colo seoul256
+"let g:seoul256_background = 233
+"colo seoul256
+"set background=dark
 
 " -- Seoul256 Light --
 "let g:seoul256_background = 256
 "colo seoul256
 "set background=light
-"
-" -- One  --
-"colorscheme one
-" set background=dark " for the dark version
-" set background=light " for the light version
 
 " Automatically wrap text that extends beyond the screen length.
 set wrap
@@ -142,4 +124,4 @@ nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>h :History<CR>
 
 " -- Polyglot -- 
-"let g:polyglot_disabled = ['elm']
+let g:polyglot_disabled = ['elm']
