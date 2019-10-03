@@ -4,6 +4,12 @@ set nocompatible
 " For plug-ins to load correctly.
 filetype plugin indent on
  
+" Install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 
@@ -14,13 +20,14 @@ Plug 'sainnhe/edge'
 Plug 'AlessandroYorba/Alduin'
 
 Plug 'vim-airline/vim-airline'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jceb/vim-orgmode'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-speeddating'
 Plug 'ervandew/supertab'
-Plug 'andys8/vim-elm-syntax'
+" Syntax highlighting
+Plug 'andys8/vim-elm-syntax', { 'for': ['elm'] }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
 Plug 'scrooloose/nerdcommenter'
@@ -28,8 +35,22 @@ Plug 'scrooloose/nerdcommenter'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
+" Map <leader> to `,`
+let mapleader=','
+
+" Keybindings
+nmap <leader>r <Plug>(coc-rename)
+nmap <silent> <leader>s <Plug>(coc-fix-current)
+nmap <silent> <leader>S <Plug>(coc-codeaction)
+nmap <silent> <leader>a <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>A <Plug>(coc-diagnostic-next-error)
+nmap <silent> <leader>d <Plug>(coc-definition)
+nmap <silent> <leader>g :call CocAction('doHover')<CR>
+nmap <silent> <leader>u <Plug>(coc-references)
+nmap <silent> <leader>p :call CocActionAsync('format')<CR>
+
 " Helps force plug-ins to load correctly when it is turned back on below.
-filetype off
+"filetype off
 
 " Turn on syntax highlighting.
 syntax on
