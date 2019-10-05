@@ -18,6 +18,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/seoul256.vim'
 Plug 'sainnhe/edge'
 Plug 'AlessandroYorba/Alduin'
+Plug 'davidcelis/vim-ariake-dark'
+Plug 'liuchengxu/space-vim-dark'
 
 Plug 'vim-airline/vim-airline'
 Plug 'jceb/vim-orgmode'
@@ -57,7 +59,18 @@ syntax on
 
 " Color scheme
 
-"set termguicolors
+set termguicolors
+
+" Space Vim Dark
+colorscheme space-vim-dark
+hi Comment cterm=italic
+" set comments to grey
+"hi Comment guifg=#5C6370 ctermfg=59
+
+" -- Ariake 
+"colorscheme Ariake-Dark
+"set background=dark
+
 "let g:alduin_Shout_Become_Ethereal = 1
 "colorscheme alduin
 
@@ -68,13 +81,17 @@ syntax on
 "colorscheme edge
 
 " -- Seoul256 Dark --
-let g:seoul256_background = 234
-colo seoul256
-set background=dark
+"   Range:   233 (darkest) ~ 239 (lightest)
+"   Default: 237
+"let g:seoul256_background = 234
+"colo seoul256
+"set background=dark
 
 " -- Seoul256 Light --
-"let g:seoul256_background = 256
-"colo seoul256
+"   Range:   252 (darkest) ~ 256 (lightest)
+"   Default: 253
+"let g:seoul256_background = 252
+"colo seoul256-light
 "set background=light
 
 " Automatically wrap text that extends beyond the screen length.
