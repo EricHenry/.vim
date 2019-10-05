@@ -62,6 +62,9 @@ syntax on
 set termguicolors
 
 " Space Vim Dark
+" "   Range:   233 (darkest) ~ 238 (lightest)
+"   Default: 235
+"let g:space_vim_dark_background = 234
 colorscheme space-vim-dark
 hi Comment cterm=italic
 " set comments to grey
