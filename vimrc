@@ -3,7 +3,7 @@ set nocompatible
 
 " For plug-ins to load correctly.
 filetype plugin indent on
- 
+
 " Install vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -15,41 +15,32 @@ call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
 " -- Color Schemes
-Plug 'junegunn/seoul256.vim'
-Plug 'sainnhe/edge'
-Plug 'AlessandroYorba/Alduin'
-Plug 'davidcelis/vim-ariake-dark'
-Plug 'liuchengxu/space-vim-dark'
+"Plug 'junegunn/seoul256.vim'
+"Plug 'sainnhe/edge'
+"Plug 'AlessandroYorba/Alduin'
+"Plug 'davidcelis/vim-ariake-dark'
+"Plug 'liuchengxu/space-vim-dark'
+Plug 'dracula/vim', { 'as': 'dracula' }
+"Plug 'cocopon/iceberg.vim'
 
 Plug 'vim-airline/vim-airline'
-Plug 'jceb/vim-orgmode'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-speeddating'
-Plug 'ervandew/supertab'
+"Plug 'jceb/vim-orgmode'
+"Plug 'ervandew/supertab'
+
 " Syntax highlighting
 Plug 'andys8/vim-elm-syntax', { 'for': ['elm'] }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
-Plug 'dense-analysis/ale'
 Plug 'scrooloose/nerdcommenter'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
 " Map <leader> to `,`
-let mapleader=','
-
-" Keybindings
-nmap <leader>r <Plug>(coc-rename)
-nmap <silent> <leader>s <Plug>(coc-fix-current)
-nmap <silent> <leader>S <Plug>(coc-codeaction)
-nmap <silent> <leader>a <Plug>(coc-diagnostic-next)
-nmap <silent> <leader>A <Plug>(coc-diagnostic-next-error)
-nmap <silent> <leader>d <Plug>(coc-definition)
-nmap <silent> <leader>g :call CocAction('doHover')<CR>
-nmap <silent> <leader>u <Plug>(coc-references)
-nmap <silent> <leader>p :call CocActionAsync('format')<CR>
+let mapleader=","
 
 " Helps force plug-ins to load correctly when it is turned back on below.
 "filetype off
@@ -61,16 +52,22 @@ syntax on
 
 set termguicolors
 
+"
+"colorscheme iceberg
+
+" Dracula
+colorscheme dracula
+
 " Space Vim Dark
 " "   Range:   233 (darkest) ~ 238 (lightest)
 "   Default: 235
 "let g:space_vim_dark_background = 234
-colorscheme space-vim-dark
-hi Comment cterm=italic
+"colorscheme space-vim-dark
+"hi Comment cterm=italic
 " set comments to grey
 "hi Comment guifg=#5C6370 ctermfg=59
 
-" -- Ariake 
+" -- Ariake
 "colorscheme Ariake-Dark
 "set background=dark
 
@@ -120,6 +117,9 @@ set scrolloff=5
 " Fixes common backspace problems
 set backspace=indent,eol,start
 
+" don't add a new line at the end of files
+set nofixendofline
+
 " Speed up scrolling in Vim
 set ttyfast
 
@@ -141,7 +141,7 @@ set lcs+=space:·
 " Show line numbers
 set number
 " Show relative line numbers
-set relativenumber             
+set relativenumber
 
 " Set status line display
 "set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
@@ -164,10 +164,83 @@ set foldcolumn=1 "defines 1 col at window left, to indicate folding
 let javaScript_fold=1 "activate folding by JS syntax
 set foldlevelstart=99 "start file with all folds opened
 
-" -- fzf mappings -- 
+" -- fzf mappings --
 nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>h :History<CR>
 
-" -- Polyglot -- 
+" -- Rg mappings --
+nnoremap <Leader>f :Rg<CR>
+
+" -- Polyglot --
 let g:polyglot_disabled = ['elm']
+
+" -- CoC --
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+
+" Keybindings
+nmap <silent> <leader>s <Plug>(coc-fix-current)
+nmap <silent> <leader>S <Plug>(coc-codeaction)
+nmap <silent> <leader>g :call CocAction('doHover')<CR>
+nmap <silent> <leader>p :call CocActionAsync('format')<CR>
+

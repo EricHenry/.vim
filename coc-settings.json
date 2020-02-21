@@ -1,17 +1,17 @@
 {
     "coc.preferences.formatOnSaveFiletypes": ["elm"],
+    "eslint.autoFixOnSave": true,
     "languageserver": {
         "elmLS": {
-            "command": "elm-language-server",
-            "filetypes": ["elm"],
-            "rootPatterns": ["elm.json"],
-            "trace.server": "verbose",
-            "initializationOptions": {
-                "elmPath": "elm",
-                "elmFormatPath": "elm-format",
-                "elmTestPath": "elm-test",
-                "elmAnalyseTrigger": "change"
-            }
+          "enable": true,
+          "command": "elm-language-server",
+          "filetypes": ["elm"],
+          "rootPatterns": ["elm.json"],
+          "trace.server": "verbose",
+          "initializationOptions": {
+            "elmFormatPath": "elm-format",
+            "elmAnalyseTrigger": "save"
+          }
         },
         "haskell": {
             "command": "hie-wrapper",
