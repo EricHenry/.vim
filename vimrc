@@ -27,11 +27,13 @@ Plug 'vim-airline/vim-airline'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-speeddating'
+Plug 'jreybert/vimagit'
 "Plug 'jceb/vim-orgmode'
 "Plug 'ervandew/supertab'
 
 " Syntax highlighting
 Plug 'andys8/vim-elm-syntax', { 'for': ['elm'] }
+Plug 'derekwyatt/vim-scala'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdcommenter'
@@ -40,7 +42,10 @@ Plug 'scrooloose/nerdcommenter'
 call plug#end()
 
 " Map <leader> to `,`
-let mapleader=","
+"let mapleader=","
+noremap <Space> <Nop>
+let mapleader=" "
+
 
 " Helps force plug-ins to load correctly when it is turned back on below.
 "filetype off
@@ -90,7 +95,7 @@ colorscheme dracula
 " -- Seoul256 Light --
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
-"let g:seoul256_background = 252
+"let g:seoul256_background = 256
 "colo seoul256-light
 "set background=light
 
@@ -173,7 +178,7 @@ nnoremap <Leader>h :History<CR>
 nnoremap <Leader>f :Rg<CR>
 
 " -- Polyglot --
-let g:polyglot_disabled = ['elm']
+let g:polyglot_disabled = ['elm', 'scala']
 
 " -- CoC --
 " Better display for messages
@@ -244,3 +249,10 @@ nmap <silent> <leader>S <Plug>(coc-codeaction)
 nmap <silent> <leader>g :call CocAction('doHover')<CR>
 nmap <silent> <leader>p :call CocActionAsync('format')<CR>
 
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+
+" Configuration for vim-scala
+au BufRead,BufNewFile *.sbt set filetype=scala

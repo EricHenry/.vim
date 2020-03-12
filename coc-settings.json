@@ -1,6 +1,7 @@
 {
     "coc.preferences.formatOnSaveFiletypes": ["elm"],
     "eslint.autoFixOnSave": true,
+    "metals.javaHome": "/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home",
     "languageserver": {
         "elmLS": {
           "enable": true,
