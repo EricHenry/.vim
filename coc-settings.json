@@ -1,7 +1,29 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": ["elm"],
+    // move type definitions and errors to status line
+    "coc.preferences.hoverTarget": "echo",
+    "signature.target": "echo",
+    "diagnostic.messageTarget": "echo",
+    "suggest.floatEnable": false,
+
+    // prettier
+    //"prettier.onlyUseLocalVersion": true,
+    "prettier.requireConfig": true,
+
+    // eslint
+    "eslint.filetypes": [
+     //   "javascript",
+     //   "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
     "eslint.autoFixOnSave": true,
+
+    // scala
     "metals.javaHome": "/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home",
+
+    "coc.preferences.formatOnSaveFiletypes": ["elm", "typescript", "typescriptreact", "haskell"],
+
+    // Language Servers
     "languageserver": {
         "elmLS": {
           "enable": true,
@@ -16,7 +38,9 @@
         },
         "haskell": {
             "command": "hie-wrapper",
+            "args": ["--lsp"],
             "rootPatterns": [
+                "*.cabal",
                 ".stack.yaml",
                 "cabal.config",
                 "package.yaml"

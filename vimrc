@@ -15,26 +15,26 @@ call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
 " -- Color Schemes
-"Plug 'junegunn/seoul256.vim'
-"Plug 'sainnhe/edge'
-"Plug 'AlessandroYorba/Alduin'
-"Plug 'davidcelis/vim-ariake-dark'
-"Plug 'liuchengxu/space-vim-dark'
+Plug 'junegunn/seoul256.vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
-"Plug 'cocopon/iceberg.vim'
+Plug 'fratajczak/one-monokai-vim'
+Plug 'connorholyday/vim-snazzy'
 
 Plug 'vim-airline/vim-airline'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-speeddating'
 Plug 'jreybert/vimagit'
-"Plug 'jceb/vim-orgmode'
+Plug 'jceb/vim-orgmode'
+Plug 'Lenovsky/nuake'
 "Plug 'ervandew/supertab'
 
 " Syntax highlighting
 Plug 'andys8/vim-elm-syntax', { 'for': ['elm'] }
 Plug 'derekwyatt/vim-scala'
+Plug 'reasonml-editor/vim-reason-plus'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'leafgarland/typescript-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdcommenter'
 
@@ -46,6 +46,11 @@ call plug#end()
 noremap <Space> <Nop>
 let mapleader=" "
 
+" Map Local Leader to '\'
+let maplocalleader="\\"
+
+" remap terminal escape
+":tnoremap <Esc> <C-\><C-n>
 
 " Helps force plug-ins to load correctly when it is turned back on below.
 "filetype off
@@ -53,37 +58,17 @@ let mapleader=" "
 " Turn on syntax highlighting.
 syntax on
 
-" Color scheme
-
-set termguicolors
-
+" 
+" -------- Color scheme config - START ---------- "
 "
-"colorscheme iceberg
+set termguicolors
+set t_Co=256
+
+colorscheme snazzy
+"colorscheme one_monokai
 
 " Dracula
-colorscheme dracula
-
-" Space Vim Dark
-" "   Range:   233 (darkest) ~ 238 (lightest)
-"   Default: 235
-"let g:space_vim_dark_background = 234
-"colorscheme space-vim-dark
-"hi Comment cterm=italic
-" set comments to grey
-"hi Comment guifg=#5C6370 ctermfg=59
-
-" -- Ariake
-"colorscheme Ariake-Dark
-"set background=dark
-
-"let g:alduin_Shout_Become_Ethereal = 1
-"colorscheme alduin
-
-" -- Edge
-"set termguicolors
-" for dark version
-"set background=dark
-"colorscheme edge
+"colorscheme dracula
 
 " -- Seoul256 Dark --
 "   Range:   233 (darkest) ~ 239 (lightest)
@@ -98,6 +83,9 @@ colorscheme dracula
 "let g:seoul256_background = 256
 "colo seoul256-light
 "set background=light
+" 
+" -------- Color scheme config - END ---------- "
+"
 
 " Automatically wrap text that extends beyond the screen length.
 set wrap
@@ -139,9 +127,9 @@ set showcmd
 set matchpairs+=<:>
 
 " Display different types of white spaces.
-set list
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
-set lcs+=space:·
+"set list
+"set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+"set lcs+=space:
 
 " Show line numbers
 set number
@@ -173,6 +161,7 @@ set foldlevelstart=99 "start file with all folds opened
 nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>h :History<CR>
+"autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 
 " -- Rg mappings --
 nnoremap <Leader>f :Rg<CR>
@@ -180,7 +169,8 @@ nnoremap <Leader>f :Rg<CR>
 " -- Polyglot --
 let g:polyglot_disabled = ['elm', 'scala']
 
-" -- CoC --
+" -------- Coc config - START ---------- "
+"
 " Better display for messages
 set cmdheight=2
 
@@ -252,7 +242,46 @@ nmap <silent> <leader>p :call CocActionAsync('format')<CR>
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+"nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+
+" Coc Explorer
+nnoremap <silent> <space>e  :<C-u>CocCommand explorer<cr>
+
+
+ 
+" Prettier
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+"
+" -------- Coc config - END ---------- "
+
+
+" -------- SCALA config - START ---------- "
+"
+" Comment highlighting
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " Configuration for vim-scala
 au BufRead,BufNewFile *.sbt set filetype=scala
+
+" Toggle panel with Tree Views
+nnoremap <silent> <space>t :<C-u>CocCommand metals.tvp<CR>
+" Toggle Tree View 'metalsBuild'
+nnoremap <silent> <space>tb :<C-u>CocCommand metals.tvp metalsBuild<CR>
+" Toggle Tree View 'metalsCompile'
+nnoremap <silent> <space>tc :<C-u>CocCommand metals.tvp metalsCompile<CR>
+" Reveal current current class (trait or object) in Tree View 'metalsBuild'
+nnoremap <silent> <space>tf :<C-u>CocCommand metals.revealInTreeView metalsBuild<CR>
+"
+" -------- SCALA config - END ---------- "
+
+
+" -------- Airline config - START---------- "
+"
+" Coc Config
+let g:airline#extensions#coc#enabled = 1
+let airline#extensions#coc#error_symbol = 'E:'
+let airline#extensions#coc#warning_symbol = 'W:'
+"
+" -------- Airline config - END ---------- "
+"
