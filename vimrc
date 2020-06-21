@@ -1,7 +1,10 @@
-if exists('g:vscode')
-    " VSCODE extension
-else
-" Ordinary vim
+" ##############################################
+" # Init
+" ##############################################
+
+set shell=/bin/zsh
+let mapleader = "\<Space>"
+
 " Set compatibility to Vim only.
 set nocompatible
 
@@ -18,63 +21,55 @@ endif
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 
-" Declare the list of plugins.
-" -- Color Schemes
-Plug 'junegunn/seoul256.vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'fratajczak/one-monokai-vim'
-Plug 'connorholyday/vim-snazzy'
-Plug 'dkasak/gruvbox'
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-"Plug 'itchyny/lightline.vim'
+" ##############################################
+" # Plugins
+" ##############################################
+
+" Color Schemes
+Plug 'junegunn/seoul256.vim'
+"Plug 'connorholyday/vim-snazzy'
+
+" GUI enhancements
+Plug 'itchyny/lightline.vim'
+
+" Fuzzy finder
+Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'jreybert/vimagit'
+
+" Semantic language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Syntactic language support
+Plug 'andys8/vim-elm-syntax', { 'for': ['elm'] } " Elm
+Plug 'dag/vim-fish'                              " fish
+Plug 'neovimhaskell/haskell-vim'                 " Haskell
+Plug 'pbrisbin/vim-syntax-shakespeare'           " Haskell - YSOD
+Plug 'pangloss/vim-javascript'                   " JavaScript 
+Plug 'reasonml-editor/vim-reason-plus'           " ReasonML
+Plug 'rust-lang/rust.vim'                        " Rust
+Plug 'derekwyatt/vim-scala'                      " Scala
+Plug 'leafgarland/typescript-vim'                " TypeScript
+Plug 'peitalin/vim-jsx-typescript'               " TypeScript
+
+" tools
+Plug 'jreybert/vimagit'
 Plug 'scrooloose/nerdcommenter'
 Plug 'voldikss/vim-floaterm'
 Plug 'wincent/terminus'
 Plug 'vimwiki/vimwiki'
 
-" Syntax highlighting
-Plug 'andys8/vim-elm-syntax', { 'for': ['elm'] }
-Plug 'derekwyatt/vim-scala'
-Plug 'reasonml-editor/vim-reason-plus'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'neovimhaskell/haskell-vim'
-Plug 'pbrisbin/vim-syntax-shakespeare'
-Plug 'pangloss/vim-javascript'
-
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-" Map <leader> to `,`
-"let mapleader=","
-"noremap <Space> <Nop>
-"let mapleader=" "
+" ##############################################
+" # Colors
+" ##############################################
 
-" Map Local Leader to '\'
-"let maplocalleader="\\"
-
-" remap terminal escape
-":tnoremap <Esc> <C-\><C-n>
-
-" 
-" -------- Color scheme config - START ---------- "
-"
 set termguicolors
 set t_Co=256
 set background=dark
-
-"colorscheme snazzy
-"colorscheme one-monokai
-"colorscheme gruvbox
-
-" Dracula
-"colorscheme dracula
 
 " -- Seoul256 Dark --
 "   Range:   233 (darkest) ~ 239 (lightest)
@@ -88,82 +83,12 @@ colo seoul256
 "let g:seoul256_background = 256
 "colo seoul256-light
 "set background=light
-" 
-" -------- Color scheme config - END ---------- "
-"
 
-" Automatically wrap text that extends beyond the screen length.
-set wrap
+" ##############################################
+" # FZF
+" ##############################################
 
-" Vim's auto indentation feature does not work properly with text copied from outside of Vim. Press the <F2> key to toggle paste mode on/off.
-nnoremap <F2> :set invpaste paste?<CR>
-imap <F2> <C-O>:set invpaste paste?<CR>
-set pastetoggle=<F2>
-
-" Uncomment below to set the max textwidth. Use a value corresponding to the width of your screen.
-" set textwidth=79
-set formatoptions=tcqrn1
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-set noshiftround
-
-" Display 5 lines above/below the cursor when scrolling with a mouse.
-set scrolloff=5
-
-" Fixes common backspace problems
-set backspace=indent,eol,start
-
-" don't add a new line at the end of files
-set nofixendofline
-
-" Speed up scrolling in Vim
-set ttyfast
-
-" Status bar
-set laststatus=2
-
-" Display options
-"set showmode
-"set showcmd
-
-" Highlight matching pairs of brackets. Use the '%' character to jump between them.
-set matchpairs+=<:>
-
-" Display different types of white spaces.
-"set list
-"set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
-"set lcs+=space:
-
-" Show line numbers
-set number
-" Show relative line numbers
-set relativenumber
-
-" Set status line display
-"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
-
-" Encoding
-set encoding=utf-8
-
-" Highlight matching search patterns
-set hlsearch
-" Enable incremental search
-set incsearch
-" Include matching uppercase words with lowercase search term
-set ignorecase
-" Include only uppercase words with uppercase search term
-set smartcase
-
-"-- FOLDING --
-set foldmethod=syntax "syntax highlighting items specify folds
-set foldcolumn=1 "defines 1 col at window left, to indicate folding
-let javaScript_fold=1 "activate folding by JS syntax
-set foldlevelstart=99 "start file with all folds opened
-
-" -- fzf mappings --
-nnoremap <C-p> :GFiles<CR>
+nnoremap <C-p> :Files<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>h :History<CR>
 "autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
@@ -171,11 +96,11 @@ nnoremap <Leader>h :History<CR>
 " -- Rg mappings --
 nnoremap <Leader>f :Rg<CR>
 
-" -- Polyglot --
-"let g:polyglot_disabled = ['elm', 'scala', 'typescript', 'typescriptreact']
 
-" -------- Coc config - START ---------- "
-"
+" ##############################################
+" # Coc 
+" ##############################################
+
 let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-reason',
@@ -265,18 +190,15 @@ nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 
 " Coc Explorer
 nnoremap <silent> <space>e  :<C-u>CocCommand explorer<cr>
-
-
  
 " Prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-"
-" -------- Coc config - END ---------- "
 
+" ##############################################
+" # SCALA config 
+" ##############################################
 
-" -------- SCALA config - START ---------- "
-"
 " Comment highlighting
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
@@ -291,51 +213,36 @@ nnoremap <silent> <space>tb :<C-u>CocCommand metals.tvp metalsBuild<CR>
 nnoremap <silent> <space>tc :<C-u>CocCommand metals.tvp metalsCompile<CR>
 " Reveal current current class (trait or object) in Tree View 'metalsBuild'
 nnoremap <silent> <space>tf :<C-u>CocCommand metals.revealInTreeView metalsBuild<CR>
-"
-" -------- SCALA config - END ---------- "
 
-"
-" -------- TypeScript config - END ---------- "
-"
+
+" ##############################################
+" # TypeScript config 
+" ##############################################
 
 " set filetypes as typescript.tsx
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
-"
-" -------- TypeScript config - START ---------- "
-"
 
-" -------- Airline config - START---------- "
-"
-" Coc Config
-let g:airline#extensions#coc#enabled = 1
-let airline#extensions#coc#error_symbol = 'E:'
-let airline#extensions#coc#warning_symbol = 'W:'
+" ##############################################
+" # Lightline 
+" ##############################################
+let g:lightline = {
+      \ 'colorscheme': 'seoul256',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \   'cocstatus': 'coc#status'
+      \ },
+      \
+      \ }
 
-" tabline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+" ##############################################
+" # Floaterm
+" ##############################################
 
-"Theme
-let g:airline_theme='simple'
-
-"let g:lightline = {
-      "\ 'colorscheme': 'seoul256',
-      "\ }
-
-set noshowmode
-set noshowcmd
-set cmdheight=1
-
-"
-" -------- Airline config - END ---------- "
-"
-
-"
-" -------- Floaterm config - START ---------- "
-"
 """ Configuration example
 let g:floaterm_keymap_prev   = '<Leader>h'
 let g:floaterm_keymap_next   = '<Leader>l'
@@ -347,15 +254,91 @@ let g:floaterm_keymap_toggle = '<Leader>j'
 "let g:floaterm_height   = 0.3
 "let g:floaterm_position = 'bottom'
 
-" -------- Floaterm config - End ---------- "
-"
 
-"
-" -------- VimWiki config - START ---------- "
-"
+" ##############################################
+" # VimWiki 
+" ##############################################
+
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
-"
-" -------- VimWiki config - End ---------- "
-"
-endif
+
+
+" ##############################################
+" # Editor Settings 
+" ##############################################
+set noshowmode
+set noshowcmd
+set cmdheight=1
+
+" Permanent undo
+set undodir=~/.vimdid
+set undofile
+
+" Decent wildmenu
+set wildmenu
+set wildmode=list:longest
+set wildignore=.hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor
+
+" folding
+set foldmethod=syntax "syntax highlighting items specify folds
+set foldcolumn=1 "defines 1 col at window left, to indicate folding
+let javaScript_fold=1 "activate folding by JS syntax
+set foldlevelstart=99 "start file with all folds opened
+
+" Automatically wrap text that extends beyond the screen length.
+set wrap
+
+" Vim's auto indentation feature does not work properly with text copied from outside of Vim. Press the <F2> key to toggle paste mode on/off.
+nnoremap <F2> :set invpaste paste?<CR>
+imap <F2> <C-O>:set invpaste paste?<CR>
+set pastetoggle=<F2>
+
+" Uncomment below to set the max textwidth. Use a value corresponding to the width of your screen.
+" set textwidth=79
+set formatoptions=tcqrn1
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set noshiftround
+
+" Display 5 lines above/below the cursor when scrolling with a mouse.
+set scrolloff=5
+
+" Fixes common backspace problems
+set backspace=indent,eol,start
+
+" don't add a new line at the end of files
+set nofixendofline
+
+" Speed up scrolling in Vim
+set ttyfast
+
+" Status bar
+set laststatus=2
+
+" Highlight matching pairs of brackets. Use the '%' character to jump between them.
+set matchpairs+=<:>
+
+" line numbers
+set number
+set relativenumber
+
+" Encoding
+set encoding=utf-8
+
+" Highlight matching search patterns
+set hlsearch
+" Enable incremental search
+set incsearch
+" Include matching uppercase words with lowercase search term
+set ignorecase
+" Include only uppercase words with uppercase search term
+set smartcase
+
+" <leader><leader> toggles between buffers
+nnoremap <leader><leader> <c-^><F23>
+
+" ##############################################
+" # Footer
+" ##############################################
