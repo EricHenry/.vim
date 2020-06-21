@@ -1,9 +1,11 @@
 {
     // move type definitions and errors to status line
-    "coc.preferences.hoverTarget": "echo",
-    "signature.target": "echo",
-    "diagnostic.messageTarget": "echo",
-    "suggest.floatEnable": false,
+    // "coc.preferences.hoverTarget": "preview",
+    // "signature.target": "float",
+    // "diagnostic.messageTarget": "float",
+    // "suggest.floatEnable": true,
+
+    "explorer.position": "right",
 
     // prettier
     //"prettier.onlyUseLocalVersion": true,
@@ -21,7 +23,13 @@
     // scala
     "metals.javaHome": "/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home",
 
-    "coc.preferences.formatOnSaveFiletypes": ["elm", "typescript", "typescriptreact", "haskell"],
+    "coc.preferences.formatOnSaveFiletypes": [
+        "elm", 
+        "typescript", 
+        "typescriptreact", 
+        "haskell",
+        "rust"
+    ],
 
     // Language Servers
     "languageserver": {

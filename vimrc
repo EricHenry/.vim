@@ -1,7 +1,12 @@
+if exists('g:vscode')
+    " VSCODE extension
+else
+" Ordinary vim
 " Set compatibility to Vim only.
 set nocompatible
 
 " For plug-ins to load correctly.
+syntax on
 filetype plugin indent on
 
 " Install vim-plug
@@ -19,53 +24,54 @@ Plug 'junegunn/seoul256.vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'fratajczak/one-monokai-vim'
 Plug 'connorholyday/vim-snazzy'
+Plug 'dkasak/gruvbox'
 
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-speeddating'
 Plug 'jreybert/vimagit'
-Plug 'jceb/vim-orgmode'
-Plug 'Lenovsky/nuake'
-"Plug 'ervandew/supertab'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'scrooloose/nerdcommenter'
+Plug 'voldikss/vim-floaterm'
+Plug 'wincent/terminus'
+Plug 'vimwiki/vimwiki'
 
 " Syntax highlighting
 Plug 'andys8/vim-elm-syntax', { 'for': ['elm'] }
 Plug 'derekwyatt/vim-scala'
 Plug 'reasonml-editor/vim-reason-plus'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'leafgarland/typescript-vim'
-Plug 'sheerun/vim-polyglot'
-Plug 'scrooloose/nerdcommenter'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'pbrisbin/vim-syntax-shakespeare'
+Plug 'pangloss/vim-javascript'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
 " Map <leader> to `,`
 "let mapleader=","
-noremap <Space> <Nop>
-let mapleader=" "
+"noremap <Space> <Nop>
+"let mapleader=" "
 
 " Map Local Leader to '\'
-let maplocalleader="\\"
+"let maplocalleader="\\"
 
 " remap terminal escape
 ":tnoremap <Esc> <C-\><C-n>
-
-" Helps force plug-ins to load correctly when it is turned back on below.
-"filetype off
-
-" Turn on syntax highlighting.
-syntax on
 
 " 
 " -------- Color scheme config - START ---------- "
 "
 set termguicolors
 set t_Co=256
+set background=dark
 
-colorscheme snazzy
-"colorscheme one_monokai
+"colorscheme snazzy
+"colorscheme one-monokai
+"colorscheme gruvbox
 
 " Dracula
 "colorscheme dracula
@@ -73,9 +79,8 @@ colorscheme snazzy
 " -- Seoul256 Dark --
 "   Range:   233 (darkest) ~ 239 (lightest)
 "   Default: 237
-"let g:seoul256_background = 234
-"colo seoul256
-"set background=dark
+let g:seoul256_background = 235
+colo seoul256
 
 " -- Seoul256 Light --
 "   Range:   252 (darkest) ~ 256 (lightest)
@@ -120,8 +125,8 @@ set ttyfast
 set laststatus=2
 
 " Display options
-set showmode
-set showcmd
+"set showmode
+"set showcmd
 
 " Highlight matching pairs of brackets. Use the '%' character to jump between them.
 set matchpairs+=<:>
@@ -167,10 +172,24 @@ nnoremap <Leader>h :History<CR>
 nnoremap <Leader>f :Rg<CR>
 
 " -- Polyglot --
-let g:polyglot_disabled = ['elm', 'scala']
+"let g:polyglot_disabled = ['elm', 'scala', 'typescript', 'typescriptreact']
 
 " -------- Coc config - START ---------- "
 "
+let g:coc_global_extensions = [
+  \ 'coc-snippets',
+  \ 'coc-reason',
+  \ 'coc-prettier',
+  \ 'coc-marketplace',
+  \ 'coc-explorer',
+  \ 'coc-eslint',
+  \ 'coc-tsserver',
+  \ 'coc-metals',
+  \ 'coc-json',
+  \ 'coc-floaterm',
+  \ ]
+
+
 " Better display for messages
 set cmdheight=2
 
@@ -275,6 +294,16 @@ nnoremap <silent> <space>tf :<C-u>CocCommand metals.revealInTreeView metalsBuild
 "
 " -------- SCALA config - END ---------- "
 
+"
+" -------- TypeScript config - END ---------- "
+"
+
+" set filetypes as typescript.tsx
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+
+"
+" -------- TypeScript config - START ---------- "
+"
 
 " -------- Airline config - START---------- "
 "
@@ -282,6 +311,51 @@ nnoremap <silent> <space>tf :<C-u>CocCommand metals.revealInTreeView metalsBuild
 let g:airline#extensions#coc#enabled = 1
 let airline#extensions#coc#error_symbol = 'E:'
 let airline#extensions#coc#warning_symbol = 'W:'
+
+" tabline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+"Theme
+let g:airline_theme='simple'
+
+"let g:lightline = {
+      "\ 'colorscheme': 'seoul256',
+      "\ }
+
+set noshowmode
+set noshowcmd
+set cmdheight=1
+
 "
 " -------- Airline config - END ---------- "
 "
+
+"
+" -------- Floaterm config - START ---------- "
+"
+""" Configuration example
+let g:floaterm_keymap_prev   = '<Leader>h'
+let g:floaterm_keymap_next   = '<Leader>l'
+let g:floaterm_keymap_hide   = '<F10>'
+let g:floaterm_keymap_new    = '<Leader>J'
+let g:floaterm_keymap_toggle = '<Leader>j'
+
+"let g:floaterm_wintype  = 'normal'
+"let g:floaterm_height   = 0.3
+"let g:floaterm_position = 'bottom'
+
+" -------- Floaterm config - End ---------- "
+"
+
+"
+" -------- VimWiki config - START ---------- "
+"
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+"
+" -------- VimWiki config - End ---------- "
+"
+endif
