@@ -10,6 +10,7 @@ set nocompatible
 
 " For plug-ins to load correctly.
 syntax on
+filetype plugin on
 filetype plugin indent on
 
 " Install vim-plug
@@ -28,7 +29,7 @@ call plug#begin('~/.vim/plugged')
 
 " Color Schemes
 Plug 'junegunn/seoul256.vim'
-"Plug 'connorholyday/vim-snazzy'
+Plug 'connorholyday/vim-snazzy'
 
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
@@ -46,12 +47,16 @@ Plug 'andys8/vim-elm-syntax', { 'for': ['elm'] } " Elm
 Plug 'dag/vim-fish'                              " fish
 Plug 'neovimhaskell/haskell-vim'                 " Haskell
 Plug 'pbrisbin/vim-syntax-shakespeare'           " Haskell - YSOD
-Plug 'pangloss/vim-javascript'                   " JavaScript 
+"Plug 'pangloss/vim-javascript'                   " JavaScript 
+Plug 'yuezk/vim-js'                              " JavaScript
+Plug 'godlygeek/tabular'                         " Markdown support
+Plug 'plasticboy/vim-markdown'                   " Markdown
 Plug 'reasonml-editor/vim-reason-plus'           " ReasonML
 Plug 'rust-lang/rust.vim'                        " Rust
 Plug 'derekwyatt/vim-scala'                      " Scala
 Plug 'leafgarland/typescript-vim'                " TypeScript
-Plug 'peitalin/vim-jsx-typescript'               " TypeScript
+"Plug 'peitalin/vim-jsx-typescript'               " TSX / JSX
+Plug 'maxmellon/vim-jsx-pretty'                  " TSX / JSX
 
 " tools
 Plug 'jreybert/vimagit'
@@ -70,12 +75,13 @@ call plug#end()
 set termguicolors
 set t_Co=256
 set background=dark
+colorscheme snazzy
 
 " -- Seoul256 Dark --
 "   Range:   233 (darkest) ~ 239 (lightest)
 "   Default: 237
-let g:seoul256_background = 235
-colo seoul256
+"let g:seoul256_background = 235
+"colo seoul256
 
 " -- Seoul256 Light --
 "   Range:   252 (darkest) ~ 256 (lightest)
@@ -199,9 +205,6 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " # SCALA config 
 " ##############################################
 
-" Comment highlighting
-autocmd FileType json syntax match Comment +\/\/.\+$+
-
 " Configuration for vim-scala
 au BufRead,BufNewFile *.sbt set filetype=scala
 
@@ -216,18 +219,10 @@ nnoremap <silent> <space>tf :<C-u>CocCommand metals.revealInTreeView metalsBuild
 
 
 " ##############################################
-" # TypeScript config 
-" ##############################################
-
-" set filetypes as typescript.tsx
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
-
-
-" ##############################################
 " # Lightline 
 " ##############################################
 let g:lightline = {
-      \ 'colorscheme': 'seoul256',
+      \ 'colorscheme': 'snazzy',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -259,7 +254,7 @@ let g:floaterm_keymap_toggle = '<Leader>j'
 " # VimWiki 
 " ##############################################
 
-let g:vimwiki_list = [{'path': '~/vimwiki/',
+let g:vimwiki_list = [{'path': '~/Documents/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
 
@@ -277,7 +272,7 @@ set undofile
 " Decent wildmenu
 set wildmenu
 set wildmode=list:longest
-set wildignore=.hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor
+set wildignore=.git,.hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor
 
 " folding
 set foldmethod=syntax "syntax highlighting items specify folds
@@ -338,6 +333,24 @@ set smartcase
 
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^><F23>
+
+"markdown
+let g:vimwiki_global_ext = 0
+let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_frontmatter = 1
+
+" ##############################################
+" # Autocommands
+" ##############################################
+
+" Comment highlighting
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
+" Help filetype detection
+autocmd BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+
 
 " ##############################################
 " # Footer
