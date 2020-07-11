@@ -43,20 +43,19 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Syntactic language support
-Plug 'andys8/vim-elm-syntax', { 'for': ['elm'] } " Elm
-Plug 'dag/vim-fish'                              " fish
-Plug 'neovimhaskell/haskell-vim'                 " Haskell
-Plug 'pbrisbin/vim-syntax-shakespeare'           " Haskell - YSOD
-"Plug 'pangloss/vim-javascript'                   " JavaScript 
-Plug 'yuezk/vim-js'                              " JavaScript
-Plug 'godlygeek/tabular'                         " Markdown support
-Plug 'plasticboy/vim-markdown'                   " Markdown
-Plug 'reasonml-editor/vim-reason-plus'           " ReasonML
-Plug 'rust-lang/rust.vim'                        " Rust
-Plug 'derekwyatt/vim-scala'                      " Scala
-Plug 'leafgarland/typescript-vim'                " TypeScript
-"Plug 'peitalin/vim-jsx-typescript'               " TSX / JSX
-Plug 'maxmellon/vim-jsx-pretty'                  " TSX / JSX
+Plug 'andys8/vim-elm-syntax', { 'for': ['elm'] }   " Elm
+Plug 'dag/vim-fish'                                " fish
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " Golang
+Plug 'neovimhaskell/haskell-vim'                   " Haskell
+Plug 'pbrisbin/vim-syntax-shakespeare'             " Haskell - YSOD
+Plug 'yuezk/vim-js'                                " JavaScript
+Plug 'godlygeek/tabular'                           " Markdown support
+Plug 'plasticboy/vim-markdown'                     " Markdown
+Plug 'reasonml-editor/vim-reason-plus'             " ReasonML
+Plug 'rust-lang/rust.vim'                          " Rust
+Plug 'derekwyatt/vim-scala'                        " Scala
+Plug 'leafgarland/typescript-vim'                  " TypeScript
+Plug 'maxmellon/vim-jsx-pretty'                    " TSX / JSX
 
 " tools
 Plug 'jreybert/vimagit'
@@ -118,6 +117,7 @@ let g:coc_global_extensions = [
   \ 'coc-metals',
   \ 'coc-json',
   \ 'coc-floaterm',
+  \ 'coc-go',
   \ ]
 
 
