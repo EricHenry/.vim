@@ -13,8 +13,8 @@
 
     // eslint
     "eslint.filetypes": [
-     //   "javascript",
-     //   "javascriptreact",
+        //   "javascript",
+        //   "javascriptreact",
         "typescript",
         "typescriptreact"
     ],
@@ -34,15 +34,15 @@
     // Language Servers
     "languageserver": {
         "elmLS": {
-          "enable": true,
-          "command": "elm-language-server",
-          "filetypes": ["elm"],
-          "rootPatterns": ["elm.json"],
-          "trace.server": "verbose",
-          "initializationOptions": {
-            "elmFormatPath": "elm-format",
-            "elmAnalyseTrigger": "save"
-          }
+            "enable": true,
+            "command": "elm-language-server",
+            "filetypes": ["elm"],
+            "rootPatterns": ["elm.json"],
+            "trace.server": "verbose",
+            "initializationOptions": {
+                "elmFormatPath": "elm-format",
+                "elmAnalyseTrigger": "save"
+            }
         },
         "haskell": {
             "command": "hie-wrapper",
@@ -63,6 +63,6 @@
                     "hlintOn": true
                 }
             }
-        }
+        }    
     }
 }

@@ -2,8 +2,14 @@
 " # Init
 " ##############################################
 
-set shell=/bin/zsh
+"set shell=/bin/zsh
+set shell=/usr/local/bin/fish
 let mapleader = "\<Space>"
+
+" Clear filetype flags before changing runtimepath to force Vim to reload them.
+""filetype off
+"filetype plugin indent off
+"set runtimepath+=$GOROOT/misc/vim
 
 " Set compatibility to Vim only.
 set nocompatible
@@ -30,6 +36,8 @@ call plug#begin('~/.vim/plugged')
 " Color Schemes
 Plug 'junegunn/seoul256.vim'
 Plug 'connorholyday/vim-snazzy'
+Plug 'sainnhe/gruvbox-material'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
@@ -51,6 +59,7 @@ Plug 'pbrisbin/vim-syntax-shakespeare'             " Haskell - YSOD
 Plug 'yuezk/vim-js'                                " JavaScript
 Plug 'godlygeek/tabular'                           " Markdown support
 Plug 'plasticboy/vim-markdown'                     " Markdown
+Plug 'vim-python/python-syntax'                    " Python
 Plug 'reasonml-editor/vim-reason-plus'             " ReasonML
 Plug 'rust-lang/rust.vim'                          " Rust
 Plug 'derekwyatt/vim-scala'                        " Scala
@@ -61,6 +70,7 @@ Plug 'maxmellon/vim-jsx-pretty'                    " TSX / JSX
 Plug 'jreybert/vimagit'
 Plug 'scrooloose/nerdcommenter'
 Plug 'voldikss/vim-floaterm'
+Plug 'kassio/neoterm'
 Plug 'wincent/terminus'
 Plug 'vimwiki/vimwiki'
 
@@ -71,10 +81,39 @@ call plug#end()
 " # Colors
 " ##############################################
 
-set termguicolors
+" -- one half dark --
+syntax on
 set t_Co=256
-set background=dark
-colorscheme snazzy
+set cursorline
+"colorscheme onehalflight
+colorscheme onehalfdark
+" lightline
+" let g:lightline.colorscheme='onehalfdark'
+
+" -- Snazzy --
+"set termguicolors
+"set t_Co=256
+"set background=dark
+"colorscheme snazzy
+
+" -- GruvBox --
+" Important!!
+"if has('termguicolors')
+  "set termguicolors
+"endif
+
+" For dark version.
+"set background=dark
+
+" For light version.
+"set background=light
+
+" Set contrast.
+" This configuration option should be placed before `colorscheme gruvbox-material`.
+" Available values: 'hard', 'medium'(default), 'soft'
+"let g:gruvbox_material_background = 'soft'
+
+"colorscheme gruvbox-material
 
 " -- Seoul256 Dark --
 "   Range:   233 (darkest) ~ 239 (lightest)
@@ -93,7 +132,8 @@ colorscheme snazzy
 " # FZF
 " ##############################################
 
-nnoremap <C-p> :Files<CR>
+"nnoremap <C-p> :Files<CR>
+nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>h :History<CR>
 "autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
@@ -118,6 +158,7 @@ let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-floaterm',
   \ 'coc-go',
+  \ 'coc-python',
   \ ]
 
 
@@ -200,6 +241,14 @@ nnoremap <silent> <space>e  :<C-u>CocCommand explorer<cr>
 " Prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
+" ##############################################
+" # GoLang config 
+" ##############################################
+" disable vim-go :GoDef short cut (gd)
+" this is handled by LanguageClient [LC]
+let g:go_def_mapping_enabled = 0
+
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " ##############################################
 " # SCALA config 
@@ -222,7 +271,8 @@ nnoremap <silent> <space>tf :<C-u>CocCommand metals.revealInTreeView metalsBuild
 " # Lightline 
 " ##############################################
 let g:lightline = {
-      \ 'colorscheme': 'snazzy',
+      "\ 'colorscheme': 'snazzy',
+      \ 'colorscheme': 'onehalfdark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
