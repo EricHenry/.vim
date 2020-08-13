@@ -36,9 +36,6 @@ call plug#begin('~/.vim/plugged')
 " Color Schemes
 Plug 'junegunn/seoul256.vim'
 Plug 'connorholyday/vim-snazzy'
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
-Plug 'sainnhe/sonokai'
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'chriskempson/base16-vim'
 
 " GUI enhancements
@@ -105,67 +102,6 @@ endif
 
 " Brighter comments
 "call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
-
-
-"syntax on
-"set t_Co=256
-"set cursorline
-
-"" Important!!
-"if has('termguicolors')
-  "set termguicolors
-"endif
-
-"" The configuration options should be placed before `colorscheme sonokai`.
-"let g:sonokai_style = 'andromeda'
-"let g:sonokai_enable_italic = 1
-"let g:sonokai_disable_italic_comment = 1
-
-"colorscheme sonokai
-
-" -- one half dark --
-"colorscheme onehalflight
-"colorscheme onehalfdark
-" lightline
-" let g:lightline.colorscheme='onehalfdark'
-
-" -- Snazzy --
-"set termguicolors
-"set t_Co=256
-"set background=dark
-"colorscheme snazzy
-
-" -- GruvBox --
-" Important!!
-"if has('termguicolors')
-  "set termguicolors
-"endif
-
-" For dark version.
-"set background=dark
-
-" For light version.
-"set background=light
-
-" Set contrast.
-" This configuration option should be placed before `colorscheme gruvbox-material`.
-" Available values: 'hard', 'medium'(default), 'soft'
-"let g:gruvbox_material_background = 'hard'
-
-"colorscheme gruvbox-material
-
-" -- Seoul256 Dark --
-"   Range:   233 (darkest) ~ 239 (lightest)
-"   Default: 237
-"let g:seoul256_background = 235
-"colo seoul256
-
-" -- Seoul256 Light --
-"   Range:   252 (darkest) ~ 256 (lightest)
-"   Default: 253
-"let g:seoul256_background = 256
-"colo seoul256-light
-"set background=light
 
 " ##############################################
 " # FZF
