@@ -8,8 +8,8 @@ let mapleader = "\<Space>"
 
 " Clear filetype flags before changing runtimepath to force Vim to reload them.
 ""filetype off
-"filetype plugin indent off
 "set runtimepath+=$GOROOT/misc/vim
+"filetype plugin indent off
 
 " Set compatibility to Vim only.
 set nocompatible
@@ -36,8 +36,10 @@ call plug#begin('~/.vim/plugged')
 " Color Schemes
 Plug 'junegunn/seoul256.vim'
 Plug 'connorholyday/vim-snazzy'
-Plug 'sainnhe/gruvbox-material'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'sainnhe/sonokai'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'chriskempson/base16-vim'
 
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
@@ -81,12 +83,49 @@ call plug#end()
 " # Colors
 " ##############################################
 
-" -- one half dark --
+" deal with colors
+if !has('gui_running')
+  set t_Co=256
+endif
+if (match($TERM, "-256color") != -1) && (match($TERM, "screen-256color") == -1)
+  " screen does not (yet) support truecolor
+  set termguicolors
+endif
+set background=dark
+let base16colorspace=256
+"let g:base16_shell_path="~/dev/others/base16/templates/shell/scripts/"
+colorscheme base16-gruvbox-dark-hard
 syntax on
-set t_Co=256
-set cursorline
+hi Normal ctermbg=NONE
+
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+
+" Brighter comments
+"call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
+
+
+"syntax on
+"set t_Co=256
+"set cursorline
+
+"" Important!!
+"if has('termguicolors')
+  "set termguicolors
+"endif
+
+"" The configuration options should be placed before `colorscheme sonokai`.
+"let g:sonokai_style = 'andromeda'
+"let g:sonokai_enable_italic = 1
+"let g:sonokai_disable_italic_comment = 1
+
+"colorscheme sonokai
+
+" -- one half dark --
 "colorscheme onehalflight
-colorscheme onehalfdark
+"colorscheme onehalfdark
 " lightline
 " let g:lightline.colorscheme='onehalfdark'
 
@@ -111,7 +150,7 @@ colorscheme onehalfdark
 " Set contrast.
 " This configuration option should be placed before `colorscheme gruvbox-material`.
 " Available values: 'hard', 'medium'(default), 'soft'
-"let g:gruvbox_material_background = 'soft'
+"let g:gruvbox_material_background = 'hard'
 
 "colorscheme gruvbox-material
 
@@ -247,6 +286,12 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
+let g:go_doc_popup_window = 1
+let g:go_highlight_structs = 1 
+let g:go_highlight_methods = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
@@ -270,9 +315,16 @@ nnoremap <silent> <space>tf :<C-u>CocCommand metals.revealInTreeView metalsBuild
 " ##############################################
 " # Lightline 
 " ##############################################
+
+function! LightlineFilename()
+  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+  "let modified = &modified ? ' +' : ''
+  "return filename . modified
+  return filename
+endfunction
+
 let g:lightline = {
-      "\ 'colorscheme': 'snazzy',
-      \ 'colorscheme': 'onehalfdark',
+      \ 'colorscheme': 'sonokai',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -304,15 +356,21 @@ let g:floaterm_keymap_toggle = '<Leader>j'
 " # VimWiki 
 " ##############################################
 
+let g:vimwiki_global_ext = 0
 let g:vimwiki_list = [{'path': '~/Documents/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
+
+let g:vimwiki_folding = 'custom'
+
+"make sure markdown files used by vimwiki are set to markdown file types
+au BufRead,BufNewFile *.md set filetype=markdown
 
 
 " ##############################################
 " # Editor Settings 
 " ##############################################
 set noshowmode
-set noshowcmd
+"set noshowcmd
 set cmdheight=1
 
 " Permanent undo
